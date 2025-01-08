@@ -17,9 +17,19 @@ MONGO_URL =os.getenv("MONGO_DB_URL")
 
 ca = certifi.where()
 
+"""
+This script is designed to read financial risk data from a CSV file, 
+convert it to JSON records, and insert them into a MongoDB collection.
+"""
+
 
 class FinancialRiskExtart():
     def __init__(self):
+
+        """
+         A utility class for handling financial risk data operations, including
+         CSV to JSON conversion and MongoDB data insertion.
+        """
 
         try:
             pass
