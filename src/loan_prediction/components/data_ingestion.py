@@ -55,7 +55,10 @@ class DataIngestion:
             logging.info(f"length of data {len(df)}")
             if "_id" in df.columns.to_list():
                 df=df.drop(columns=["_id"],axis=1)
-            
+                
+            if "ApplicationDate" in df.columns.to_list():
+                df=df.drop(columns=["ApplicationDate"],axis=1)
+
             df.replace({"na":np.nan},inplace=True)
             return df
         except Exception as e:

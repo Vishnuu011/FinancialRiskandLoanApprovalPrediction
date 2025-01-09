@@ -12,9 +12,23 @@ from src.loan_prediction.utils.utils import read_yaml_file, write_yaml_file
 from scipy.stats import ks_2samp
 
 
+"""
+The DataValidation class is responsible for:
+1. Validating the structure of training and testing datasets.
+2. Checking the number of columns in the datasets against a predefined schema.
+3. Detecting dataset drift by comparing the distributions of features in training and testing datasets.
+4. Generating a data drift report and saving valid datasets for downstream processes.
+"""
+
+
 class DataValidation:
     def __init__(self,data_ingestion_artifact:DataIngestionArtifact, 
                  data_validation_config:DataValidationConfig):
+        
+        """
+        Initialize the DataValidation class with ingestion artifacts and validation configurations.
+        """
+
         try:
             self.data_ingestion_artifact = data_ingestion_artifact
             self.data_validation_config = data_validation_config
@@ -24,12 +38,21 @@ class DataValidation:
         
     @staticmethod    
     def read_csv(file_path)->pd.DataFrame:
+
+        """
+        Read a CSV file and return it as a pandas DataFrame.
+        """
+         
         try:
             return pd.read_csv(file_path)
         except Exception as e:
             raise CustomException(e, sys) 
 
     def validate_number_of_columns(self, dataframe:pd.DataFrame)->bool:
+
+        """
+        Validate if the DataFrame contains the expected number of columns based on the schema.
+        """
 
         try:
             number_of_columns=len(self._schema_config['columns'])
@@ -43,6 +66,10 @@ class DataValidation:
             raise CustomException(e, sys) 
 
     def detect_dataset_drift(self,base_df,current_df,threshold=0.05)->bool:
+
+        """
+        Detect dataset drift by comparing the distributions of each column between two datasets.
+        """
 
         try:
             status = True
@@ -71,6 +98,14 @@ class DataValidation:
             raise CustomException(e, sys)          
         
     def initiate_data_validation(self)->DataIngestionArtifact:
+
+        """
+        Execute the data validation process:
+        1. Load training and testing datasets.
+        2. Validate the number of columns in both datasets.
+        3. Detect dataset drift between training and testing datasets.
+        4. Save validated datasets and generate a validation artifact.
+        """
 
         try:
             train_path = self.data_ingestion_artifact.trained_file_path
