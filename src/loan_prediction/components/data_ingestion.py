@@ -18,17 +18,33 @@ load_dotenv()
 
 MONGO_DB_URL = os.getenv("MONGO_DB_URL")
 
+"""
+The DataIngestion class is responsible for:
+1. Extracting data from a MongoDB collection and converting it into a pandas DataFrame.
+2. Exporting the DataFrame into a feature store as a CSV file.
+3. Splitting the data into training and testing datasets and saving them as CSV files.
+4. Coordinating the data ingestion pipeline through the `initiate_data_ingestion` method.
+ """
+
+
 class DataIngestion:
     def __init__(self,data_ingestion_config:DataIngestionConfig):
+
+        """
+        Initialize the DataIngestion class with the given configuration.
+        """
+
         try:
             self.data_ingestion_config=data_ingestion_config
         except Exception as e:
             raise CustomException(e,sys)
         
     def export_collection_as_dataframe(self):
+
         """
-        Read data from mongodb
+        Read data from MongoDB collection and return it as a pandas DataFrame.
         """
+
         try:
             database_name=self.data_ingestion_config.database_name
             collection_name=self.data_ingestion_config.collection_name
@@ -36,7 +52,7 @@ class DataIngestion:
             collection=self.mongo_client[database_name][collection_name]
 
             df=pd.DataFrame(list(collection.find()))
-            logging.info(f"lenght of data {len(df)}")
+            logging.info(f"length of data {len(df)}")
             if "_id" in df.columns.to_list():
                 df=df.drop(columns=["_id"],axis=1)
             
@@ -46,6 +62,11 @@ class DataIngestion:
             raise CustomException(e,sys)
         
     def export_data_into_feature_store(self,dataframe: pd.DataFrame):
+
+        """
+        Export the processed DataFrame into a feature store as a CSV file.
+        """
+
         try:
             feature_store_file_path=self.data_ingestion_config.feature_store_file_path
             dir_path = os.path.dirname(feature_store_file_path)
@@ -57,6 +78,11 @@ class DataIngestion:
             raise CustomException(e,sys)
         
     def split_data_as_train_test(self,dataframe: pd.DataFrame):
+
+        """
+        Split the DataFrame into training and testing datasets and save them as CSV files.
+        """
+
         try:
             train_set, test_set = train_test_split(
                 dataframe, test_size=self.data_ingestion_config.train_test_split_ratio
@@ -82,6 +108,11 @@ class DataIngestion:
         
         
     def initiate_data_ingestion(self):
+
+        """
+        Orchestrate the data ingestion process by calling other methods.
+        """
+        
         try:
             dataframe=self.export_collection_as_dataframe()
             dataframe=self.export_data_into_feature_store(dataframe)
@@ -91,6 +122,5 @@ class DataIngestion:
             return dataingestionartifact
 
         except Exception as e:
-            raise CustomException(e,sys)          
-        
+            raise CustomException(e,sys)
       
