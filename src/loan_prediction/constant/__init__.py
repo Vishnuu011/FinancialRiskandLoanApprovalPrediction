@@ -19,7 +19,7 @@ TEST_REGRESSOR_FILE_NAME: str = "test_reg.csv"
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
 
 SAVED_MODEL_DIR =os.path.join("saved_models")
-CLASSIFICATION_MODEL_FILE_NAME = "model.pkl"
+CLASSIFICATION_MODEL_FILE_NAME = "model_classification.pkl"
 REGRESSION_MODEL_FILE_NAME = "model_regression.pkl"
 
 
@@ -59,3 +59,17 @@ DATA_TRANSFORMATION_TEST_FILE_PATH: str = "test.npy"
 
 DATA_TRANSFORMATION_TRAIN_REG_FILE_PATH: str = "train_reg.npy"
 DATA_TRANSFORMATION_TEST_REG_FILE_PATH: str = "test_reg.npy"
+
+
+"""
+Model Trainer ralated constant start with MODE TRAINER VAR NAME
+"""
+
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINER_TRAINED_CLASSIFI_MODEL_NAME: str = "model_classification.pkl"
+MODEL_TRAINER_TRAINED_REGRESS_MODEL_NAME: str = "model_regression.pkl"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.9
+MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD: float = 0.05
+
+TRAINING_BUCKET_NAME = "FinancialRisk"

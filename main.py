@@ -7,6 +7,7 @@ from src.loan_prediction.components.data_validation import DataValidation
 from src.loan_prediction.components.data_tansformation import DataTransformation
 
 
+
 import sys
 
 if __name__=='__main__':
