@@ -12,6 +12,7 @@ fastapi
 uvicorn
 python-multipart
 from_root
+imbalanced-learn
 
 
 ##-e .
