@@ -74,5 +74,9 @@ class ModelTrainerConfig:
             self.model_trainer_dir, MODEL_TRAINER_TRAINED_MODEL_DIR, 
             CLASSIFICATION_MODEL_FILE_NAME
         )
+        self.trained_regression_model_file_path: str = os.path.join(
+            self.model_trainer_dir, MODEL_TRAINER_TRAINED_MODEL_DIR, 
+            REGRESSION_MODEL_FILE_NAME
+        )
         self.expected_accuracy: float = MODEL_TRAINER_EXPECTED_SCORE
         self.overfitting_underfitting_threshold = MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD

@@ -4,7 +4,7 @@ import sys
 from src.loan_prediction.exception import CustomException
 from src.loan_prediction.logger import logging
 
-class NetworkModel:
+class FinacalRiskModel:
     def __init__(self,preprocessor,model):
         try:
             self.preprocessor = preprocessor

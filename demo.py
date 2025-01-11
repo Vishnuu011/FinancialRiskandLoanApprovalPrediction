@@ -1,11 +1,14 @@
 from src.loan_prediction.logger import logging
 from src.loan_prediction.exception import CustomException
-import sys
+from src.loan_prediction.utils.utils import load_object
+
+import numpy
+print(numpy.__version__)
 
 
-try:
-    logging.info("Enter the try block")
-    a=1/0
-    print("This will not be printed",a)
-except Exception as e:
-     raise CustomException(e,sys)
+
+model = load_object("final_model/model_regression.pkl")
+model_classi = load_object("final_model/model_classification.pkl")
+print(model)
+print(model_classi)
+

@@ -1,10 +1,11 @@
 from src.loan_prediction.logger import logging
 from src.loan_prediction.exception import CustomException
 from src.loan_prediction.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataTransformationArtifact
-from src.loan_prediction.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig, DataValidationConfig, DataTransformationConfig
+from src.loan_prediction.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
 from src.loan_prediction.components.data_ingestion import DataIngestion
 from src.loan_prediction.components.data_validation import DataValidation
 from src.loan_prediction.components.data_tansformation import DataTransformation
+from src.loan_prediction.components.model_trainer import ModelTrainer
 
 
 
@@ -31,5 +32,14 @@ if __name__=='__main__':
         data_transformation_artifact=data_transformation.initiate_data_transformation()
         print(data_transformation_artifact)
         logging.info("data Transformation completed")
+        logging.info("Model Training sstared")
+        model_trainer_config=ModelTrainerConfig(trainingpipelineconfig)
+        model_trainer=ModelTrainer(data_transformation_artifact,model_trainer_config)
+        model_trainer_classification_artifact, model_trainer_regression_artifact=model_trainer.initiate_model_trainer()
+
+        print(model_trainer_classification_artifact)
+        print(model_trainer_regression_artifact)
+
+        logging.info("Model Training artifact created")
     except Exception as e:
         raise CustomException(e, sys)  

@@ -40,10 +40,13 @@ class RegressionMetricArtifact:
     r2score: float   
     
 @dataclass
-class ModelTrainerArtifact:
+class ModelTrainerClassificationArtifact:
     trained_model_classification_file_path: str
-    trained_model_regression_file_path: str
     train_metric_artifact: ClassificationMetricArtifact
     test_metric_artifact: ClassificationMetricArtifact  
+
+@dataclass
+class ModelTrainerRegressionArtifact:
+    trained_model_regression_file_path: str  
     train_metric_artifact_r: RegressionMetricArtifact
     test_metric_artifact_r: RegressionMetricArtifact    
