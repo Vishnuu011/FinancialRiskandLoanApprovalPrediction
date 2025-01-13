@@ -8,39 +8,6 @@ from src.loan_prediction.logger import logging
 from src.loan_prediction.utils.utils import load_object
 from src.loan_prediction.utils.ml_utils.estimator import FinacalRiskModel
 
-class PredictionPipeline:
-    def __init__(self):
-
-        pass
-
-    def prediction_classification(self, feature):
-
-        try:
-            model_path_classification_path=os.path.join("final_model","model_classification.pkl")
-            preprocessor_path=os.path.join('final_model','preprocessor.pkl')
-            model_classification = load_object(file_path=model_path_classification_path)
-            preprossers = load_object(file_path=preprocessor_path)
-
-            scaled_data = preprossers.transform(feature)
-            preds = model_classification.predict(scaled_data)
-            return preds
-        except Exception as e:
-            raise CustomException(e, sys)
-        
-    def prediction_regression(self, feature):
-
-        try:
-            model_path_regression_path=os.path.join("final_model","model_regression.pkl")
-            preprocessor_path=os.path.join('final_model','preprocessor.pkl')
-            model_regression = load_object(file_path=model_path_regression_path)
-            preprossers = load_object(file_path=preprocessor_path)
-
-            scaled_data = preprossers.transform(feature)
-            preds = model_regression.predict(scaled_data)
-            return preds
-        except Exception as e:
-            raise CustomException(e, sys)   
-
 
 
 class CustomData:
@@ -116,39 +83,39 @@ class CustomData:
     def get_data_as_data_frame(self):
         try:
             custom_data_input_dict = {
-                "gender": [self.Age],
-                "InternetService": [self.AnnualIncome],
-                "Contract": [self.CreditScore],
-                "tenure": [self.EmploymentStatus],
-                "MonthlyCharges": [self.EducationLevel],
-                "gender": [self.Experience],
-                "InternetService": [self.LoanAmount],
-                "Contract": [self.LoanDuration],
-                "tenure": [self.MaritalStatus],
-                "MonthlyCharges": [self.NumberOfDependents],
-                "gender": [self.HomeOwnershipStatus],
-                "InternetService": [self.MonthlyDebtPayments],
-                "Contract": [self.CreditCardUtilizationRate],
-                "tenure": [self.NumberOfOpenCreditLines],
-                "MonthlyCharges": [self.NumberOfCreditInquiries],
-                "gender": [self.DebtToIncomeRatio],
-                "InternetService": [self.BankruptcyHistory],
-                "Contract": [self.LoanPurpose],
-                "tenure": [self.PreviousLoanDefaults],
-                "MonthlyCharges": [self.PaymentHistory],
-                "gender": [self.LengthOfCreditHistory],
-                "InternetService": [self.SavingsAccountBalance],
-                "Contract": [self.CheckingAccountBalance],
-                "tenure": [self.TotalAssets],
-                "MonthlyCharges": [self.TotalLiabilities],
-                "gender": [self.MonthlyIncome],
-                "InternetService": [self.UtilityBillsPaymentHistory],
-                "Contract": [self.JobTenure],
-                "tenure": [self.NetWorth],
-                "MonthlyCharges": [self.BaseInterestRate],
-                "Contract": [self.InterestRate],
-                "tenure": [self.MonthlyLoanPayment],
-                "MonthlyCharges": [self.TotalDebtToIncomeRatio],
+                "Age": [self.Age],
+                "AnnualIncome": [self.AnnualIncome],
+                "CreditScore": [self.CreditScore],
+                "EmploymentStatus": [self.EmploymentStatus],
+                "EducationLevel": [self.EducationLevel],
+                "Experience": [self.Experience],
+                "LoanAmount": [self.LoanAmount],
+                "LoanDuration": [self.LoanDuration],
+                "MaritalStatus": [self.MaritalStatus],
+                "NumberOfDependents": [self.NumberOfDependents],
+                "HomeOwnershipStatus": [self.HomeOwnershipStatus],
+                "MonthlyDebtPayments": [self.MonthlyDebtPayments],
+                "CreditCardUtilizationRate": [self.CreditCardUtilizationRate],
+                "NumberOfOpenCreditLines": [self.NumberOfOpenCreditLines],
+                "NumberOfCreditInquiries": [self.NumberOfCreditInquiries],
+                "DebtToIncomeRatio": [self.DebtToIncomeRatio],
+                "BankruptcyHistory": [self.BankruptcyHistory],
+                "LoanPurpose": [self.LoanPurpose],
+                "PreviousLoanDefaults": [self.PreviousLoanDefaults],
+                "PaymentHistory": [self.PaymentHistory],
+                "LengthOfCreditHistory": [self.LengthOfCreditHistory],
+                "SavingsAccountBalance": [self.SavingsAccountBalance],
+                "CheckingAccountBalance": [self.CheckingAccountBalance],
+                "TotalAssets": [self.TotalAssets],
+                "TotalLiabilities": [self.TotalLiabilities],
+                "MonthlyIncome": [self.MonthlyIncome],
+                "UtilityBillsPaymentHistory": [self.UtilityBillsPaymentHistory],
+                "JobTenure": [self.JobTenure],
+                "NetWorth": [self.NetWorth],
+                "BaseInterestRate": [self.BaseInterestRate],
+                "InterestRate": [self.InterestRate],
+                "MonthlyLoanPayment": [self.MonthlyLoanPayment],
+                "TotalDebtToIncomeRatio": [self.TotalDebtToIncomeRatio],
                 
             }
 

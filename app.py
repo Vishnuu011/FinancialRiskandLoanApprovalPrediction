@@ -1,9 +1,11 @@
-from flask import Flask,request,render_template
-from src.loan_prediction.pipline.prediction_pipeline import PredictionPipeline, CustomData
+from flask import Flask,request,render_template, url_for
+from src.loan_prediction.pipline.prediction_pipeline import CustomData
+from src.loan_prediction.utils.ml_utils.estimator import FinacalRiskModel
+from src.loan_prediction.utils.utils import load_object
 
 
 
-app=Flask(__name__, template_folder="templates")
+app=Flask(__name__, template_folder="templates", static_folder="static")
 
 
 @app.route("/",methods=["GET","POST"])
@@ -48,10 +50,24 @@ def predict_datapoint():
         )
         final_data=data.get_data_as_data_frame()
 
-        predict_pipeline=PredictionPipeline()
+        preprocessor= load_object("final_model/preprocessor.pkl")
+        classification_model=load_object("final_model/model_classification.pkl")
+        regression_model =load_object("final_model/model_regression.pkl")
+        pre_data = preprocessor.transform(final_data)
 
-        pred=predict_pipeline.prediction_classification(final_data)
+        classification_pred = classification_model.predict(pre_data)
 
 
+        risk_score_pred = regression_model.predict(pre_data)[0]  
 
-        return render_template("result.html",final_result="rejected" if pred == 0 else "approved")
+        
+        result_classification = "Rejected" if classification_pred[0] == 0 else "Approved"
+        result_risk_score = f"{risk_score_pred:.2f}" 
+
+        return render_template(
+            "result.html",
+            final_result=result_classification,
+            risk_score=result_risk_score,
+        )
+if __name__ == '__main__':
+    app.run(debug=True, port=8080)

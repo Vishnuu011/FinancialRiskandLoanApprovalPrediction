@@ -17,15 +17,17 @@ h1 {
     font-weight: bold;
     margin: 20px;
     color: #444444; /* Fallback for unsupported browsers */
-    background: linear-gradient(45deg, #ffafbd, #ffc3a0, #2193b0, #6dd5ed);
+    background: linear-gradient(45deg, #3f1a20, #5f3e2a, #1c5766, #153b44);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
+
 /* Add Hover Effect to H1 */
 h1:hover {
     transform: scale(1.1);
-    text-shadow: 4px 4px 12px rgba(219, 112, 147, 0.7);
+    text-shadow: 4px 4px 12px rgba(93, 12, 38, 0.7);
 }
+
