@@ -14,5 +14,6 @@ python-multipart
 from_root
 imbalanced-learn
 Flask
+gunicorn
 
 ##-e .

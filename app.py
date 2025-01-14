@@ -2,6 +2,7 @@ from flask import Flask,request,render_template, url_for
 from src.loan_prediction.pipline.prediction_pipeline import CustomData
 from src.loan_prediction.utils.ml_utils.estimator import FinacalRiskModel
 from src.loan_prediction.utils.utils import load_object
+import os
 
 
 
@@ -70,4 +71,4 @@ def predict_datapoint():
             risk_score=result_risk_score,
         )
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(host="0.0.0.0", port=8000)
