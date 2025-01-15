@@ -107,17 +107,16 @@ class ModelTrainer:
         dagshub.init(repo_owner='Vishnuu011', repo_name='FinancialRiskandLoanApprovalPrediction', mlflow=True)
         #tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         experiment_name = "financialRegressionmetrics"
-        experiment_name = "FinancialRiskMetrics"
         mlflow.set_experiment(experiment_name)
         
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         
         with mlflow.start_run():
             # Log metrics
-            mlflow.log_metric("accuracy", regressionnmetric.Rmse)
-            mlflow.log_metric("f1_score", regressionnmetric.mae)
-            mlflow.log_metric("precision", regressionnmetric.mse)
-            mlflow.log_metric("recall", regressionnmetric.r2score)
+            mlflow.log_metric("RMSE", regressionnmetric.Rmse)
+            mlflow.log_metric("MAE", regressionnmetric.mae)
+            mlflow.log_metric("MSE", regressionnmetric.mse)
+            mlflow.log_metric("R2score", regressionnmetric.r2score)
             
             # Log model
             if tracking_url_type_store != "file":
