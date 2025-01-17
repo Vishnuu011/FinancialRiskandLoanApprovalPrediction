@@ -3,8 +3,21 @@ from src.loan_prediction.pipline.prediction_pipeline import CustomData
 from src.loan_prediction.utils.ml_utils.estimator import FinacalRiskModel
 from src.loan_prediction.utils.utils import load_object
 import os
+import pandas as pd
+from pymongo import MongoClient
+import openpyxl
+from dotenv import load_dotenv
+load_dotenv()
 
 
+
+
+MONGO_URI = os.getenv("MONGO_DB_URL_2")
+client = MongoClient(MONGO_URI)
+db = client["LOAN_PREDICTIONS"] 
+collection = db["Userinput_Predictions"] 
+
+EXCEL_FILE = "loan_risk_and_approvel_predictions.xlsx"
 
 app=Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -65,6 +78,25 @@ def predict_datapoint():
         result_classification = "Rejected" if classification_pred[0] == 0 else "Approved"
         result_risk_score = f"{risk_score_pred:.2f}" 
 
+        user_data = data.__dict__ 
+        print(user_data)
+        prediction_data = {
+            "loan_status": result_classification,
+            "risk_score": risk_score_pred,
+        }
+        user_data.update(prediction_data)
+        collection.insert_one(user_data)
+        print(collection)
+
+        # Saving data to Excel
+        df = pd.DataFrame([user_data])  # Convert dictionary to DataFrame
+        if os.path.exists(EXCEL_FILE):
+            existing_df = pd.read_excel(EXCEL_FILE)
+            updated_df = pd.concat([existing_df, df], ignore_index=True)
+            updated_df.to_excel(EXCEL_FILE, index=False)
+        else:
+            df.to_excel(EXCEL_FILE, index=False)
+
         return render_template(
             "result.html",
             final_result=result_classification,
@@ -72,4 +104,4 @@ def predict_datapoint():
         )
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)

@@ -15,5 +15,5 @@ from_root
 imbalanced-learn
 Flask
 gunicorn
-
+openpyxl
 ##-e .
