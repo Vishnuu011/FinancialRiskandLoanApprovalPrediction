@@ -89,11 +89,11 @@ def predict_datapoint():
         print(collection)
 
         # Saving data to Excel
-        df = pd.DataFrame([user_data])  # Convert dictionary to DataFrame
-        if os.path.exists(CSV_FILE):
-            df.to_csv(CSV_FILE, mode="a", header=False, index=False)
-        else:
-            df.to_csv(CSV_FILE, index=False)
+        #df = pd.DataFrame([user_data])  # Convert dictionary to DataFrame
+        #if os.path.exists(CSV_FILE):
+            #df.to_csv(CSV_FILE, mode="a", header=False, index=False)
+        #else:
+            #df.to_csv(CSV_FILE, index=False)
 
         return render_template(
             "result.html",
