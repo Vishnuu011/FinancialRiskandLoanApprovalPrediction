@@ -17,7 +17,7 @@ client = MongoClient(MONGO_URI)
 db = client["LOAN_PREDICTIONS"] 
 collection = db["Userinput_Predictions"] 
 
-EXCEL_FILE = "loan_risk_and_approvel_predictions.xlsx"
+CSV_FILE = "loan_predictions.csv"
 
 app=Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -90,12 +90,10 @@ def predict_datapoint():
 
         # Saving data to Excel
         df = pd.DataFrame([user_data])  # Convert dictionary to DataFrame
-        if os.path.exists(EXCEL_FILE):
-            existing_df = pd.read_excel(EXCEL_FILE)
-            updated_df = pd.concat([existing_df, df], ignore_index=True)
-            updated_df.to_excel(EXCEL_FILE, index=False)
+        if os.path.exists(CSV_FILE):
+            df.to_csv(CSV_FILE, mode="a", header=False, index=False)
         else:
-            df.to_excel(EXCEL_FILE, index=False)
+            df.to_csv(CSV_FILE, index=False)
 
         return render_template(
             "result.html",
@@ -104,4 +102,4 @@ def predict_datapoint():
         )
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)
