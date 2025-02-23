@@ -1,6 +1,6 @@
 
 from pymongo.mongo_client import MongoClient
-uri = "mongodb+srv://vishnurrajeev:Admin12345@cluster0.1exig.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = ""
 # Create a new client and connect to the server
 client = MongoClient(uri)
 # Send a ping to confirm a successful connection

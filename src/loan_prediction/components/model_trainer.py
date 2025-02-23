@@ -334,11 +334,18 @@ class ModelTrainer:
                 test_arr_reg[:, :-1],
                 test_arr_reg[:, -1],
             )
+
+             
+            print("____________________________________________________________________________")
+
+            print("======================classification trainer started============================")
+            print("_____________________________________________________________________________")
+
             model_trainer_classification_artifact=self.train_model(x_train,y_train,x_test,y_test)
 
             print("____________________________________________________________________________")
 
-            print("======================Regresssion triner started============================")
+            print("======================Regresssion trainer started============================")
             print("_____________________________________________________________________________")
 
             model_trainer_regression_artifact=self.train_model_regression(train_x, train_y, test_x, test_y )

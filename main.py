@@ -6,7 +6,7 @@ from src.loan_prediction.components.data_ingestion import DataIngestion
 from src.loan_prediction.components.data_validation import DataValidation
 from src.loan_prediction.components.data_tansformation import DataTransformation
 from src.loan_prediction.components.model_trainer import ModelTrainer
-from src.loan_prediction.pipline.training_pipeline import TrainingPipeline
+from loan_prediction.pipline.training_pipeline import TrainingPipeline
 
 
 

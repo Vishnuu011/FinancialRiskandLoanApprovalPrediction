@@ -1,16 +1,16 @@
-from math import log
+
 import logging
 import os
+
 from datetime import datetime
-from from_root import from_root
+LOG_FILE=f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
-LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-log_dir ="logs"
-log_file_path = os.path.join(from_root(),log_dir,LOG_FILE)
-os.makedirs(log_dir,exist_ok=True)
+log_path=os.path.join(os.getcwd(),"logs")
 
-logging.basicConfig(
-    filename=log_file_path,
-    format="[%(asctime)s] %(name)s - %(levelname)s - %(message)s",
-    level=logging.DEBUG
-)
+os.makedirs(log_path,exist_ok=True)
+
+LOG_FILEPATH=os.path.join(log_path,LOG_FILE)
+logging.basicConfig(level=logging.INFO, 
+                    filename=LOG_FILEPATH,
+                    format="[%(asctime)s] %(lineno)d %(name)s - %(levelname)s - %(message)s"
+                    )

@@ -16,4 +16,5 @@ imbalanced-learn
 Flask
 gunicorn
 openpyxl
+apache-airflow
 ##-e .

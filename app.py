@@ -12,10 +12,10 @@ load_dotenv()
 
 
 
-#MONGO_URI = os.getenv("MONGO_DB_URL_2")
-#client = MongoClient(MONGO_URI)
-#db = client["LOAN_PREDICTIONS"] 
-#collection = db["Userinput_Predictions"] 
+MONGO_URI = os.getenv("MONGO_DB_URL_2")
+client = MongoClient(MONGO_URI)
+db = client["LOAN_PREDICTIONS"] 
+collection = db["Userinput_Predictions"] 
 
 CSV_FILE = "loan_predictions.csv"
 
@@ -78,7 +78,7 @@ def predict_datapoint():
         result_classification = "Rejected" if classification_pred[0] == 0 else "Approved"
         result_risk_score = f"{risk_score_pred:.2f}" 
         
-        """"
+        
         user_data = data.__dict__ 
         print(user_data)
         prediction_data = {
@@ -90,12 +90,12 @@ def predict_datapoint():
         print(collection)
 
         # Saving data to Excel
-        #df = pd.DataFrame([user_data])  # Convert dictionary to DataFrame
-        #if os.path.exists(CSV_FILE):
-            #df.to_csv(CSV_FILE, mode="a", header=False, index=False)
-        #else:
-            #df.to_csv(CSV_FILE, index=False)
-        """
+        df = pd.DataFrame([user_data])  # Convert dictionary to DataFrame
+        if os.path.exists(CSV_FILE):
+            df.to_csv(CSV_FILE, mode="a", header=False, index=False)
+        else:
+            df.to_csv(CSV_FILE, index=False)
+        
         return render_template(
             "result.html",
             final_result=result_classification,
